@@ -14,3 +14,71 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+
+.container {
+  padding: 0 20%;
+}
+
+.headerWrapper {
+  text-align: center;
+}
+
+.signUpWrapper {
+  border: 1px solid gray;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  width: 150px;
+}
+
+.signUpLine {
+  display: flex;
+}
+
+.time {
+  flex: 0 0 50%;
+  margin-left: 20px;
+  font-size:24px;
+  color: gray;
+}
+
+.input {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  font-size:24px;
+  color: gray;
+}
+
+.input:focus {
+  background-color: #E3EFC5;
+  border: 0;
+  outline: none;
+}
+
+.input:focus + .time {
+  background-color: green;
+}
+
+.button {
+  background-color: #F78E55;
+  margin-bottom: 5rem;
+  width: 25%;
+  height: 50px;
+  text-align: center;
+  padding-top: 15px;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 4rem auto;
+}
+
+
+/* #F78E55 */
+/* #BACF5F */
