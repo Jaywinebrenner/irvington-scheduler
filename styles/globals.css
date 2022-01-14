@@ -19,6 +19,7 @@ a {
 
 .container {
   padding: 0 20%;
+  text-align: center;
 }
 
 .headerWrapper {
@@ -28,21 +29,36 @@ a {
 .signUpWrapper {
   border: 1px solid gray;
   margin-bottom: 2rem;
+  width: 300px;
+  margin: 0 auto;
+  /* padding: 10px; */
+  position: relative;
 }
 
+.signUpLine:last-child {
+  border-bottom: none;
+}
 .logo {
   width: 150px;
 }
 
 .signUpLine {
-  display: flex;
+  padding: 10px;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
+  background-color: #E3EFC5;
+  transition: .3s;
+}
+
+.signUpLine:hover {
+  /* background-color: #BACF5F; */
+  opacity: .7;
 }
 
 .time {
-  flex: 0 0 50%;
-  margin-left: 20px;
   font-size:24px;
   color: gray;
+  margin: 0;
 }
 
 .input {
@@ -77,6 +93,15 @@ input[type="text"] {
   cursor: pointer;
   border-radius: 5px;
   margin: 4rem auto;
+  transition: .3s;
+}
+
+.button:hover {
+  background-color: #F78E5589
+}
+
+.active {
+  background-color: #BACF5F;
 }
 
 

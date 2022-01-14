@@ -1,8 +1,18 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+
+import React, {useState, useEffect} from 'react'
+import fakeSlotsData from '../fakeSlotsData'
+import TimeSlot from '../components/timeSlot'
 
 export default function Home() {
+
+  const [allSlots, setAllSlots] = useState(fakeSlotsData);
+  const [selectedSlotId, setSelectedSlotId] = useState()
+
+  const clickSlot = (id) => { 
+    setSelectedSlotId(id)
+    console.log("ID", selectedSlotId);
+  }
+
   return (
     <div className="container">
         <div className="headerWrapper">
@@ -12,28 +22,14 @@ export default function Home() {
           We look forward to seeing you there!</p>
         </div>
 
-        <div className="signUpWrapper">
-          <div className="signUpLine">
-              <p className="time">10:00am | February 6th</p> <input  className="input"type="text" placeholder="Available"/>
-          </div>
-          <div className="signUpLine">
-              <p className="time">10:30am | February 6th</p><input  className="input"type="text" placeholder="Available"/>
-          </div>
-          <div className="signUpLine">
-              <p className="time">11:00am | February 6th</p><input  className="input"type="text" placeholder="Available"/>
-          </div>
-          <div className="signUpLine">
-              <p className="time">11:30am | February 6th</p><input  className="input"type="text" placeholder="Available"/>
-          </div>
-          <div className="signUpLine">
-              <p className="time">12:00pm | February 6th</p><input  className="input"type="text" placeholder="Available"/>
-          </div>
-          <div className="signUpLine">
-              <p className="time">12:30pm | February 6th</p><input  className="input"type="text" placeholder="Available"/>
-          </div>
-          <div className="signUpLine">
-              <p className="time">1:00pm | February 6th</p><input type="text" plac className="input"placeholder="Available"/>
-          </div>
+        <div className='signUpWrapper'>
+          {
+            allSlots && allSlots.map((slot, i) => {
+              return (
+                <TimeSlot key={`slot-${i}`} selectedSlotId={selectedSlotId} slot={slot} clickSlot={clickSlot}/>
+              )
+            })
+          }
         </div>
 
         <div className='button'>CONFIRM TIME</div>
