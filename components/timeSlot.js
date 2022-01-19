@@ -5,13 +5,15 @@
 
  export default function TimeSlot({slot, clickSlot, selectedSlotId}) {
 
- 
+
    return (
      <div 
-        onClick={() =>clickSlot(slot.id)}
-        className={"signUpLine" + ((selectedSlotId === slot.id) ? ' active' : '')}>
+ 
+     onClick={() =>clickSlot(slot.id, slot)}
+     className={"signUpLine" + ((selectedSlotId === slot.id) ? ' active' : '')}>
          <p className="time">{slot.time}</p> 
      </div>
+    // <></>
  
    )
  }

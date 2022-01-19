@@ -29,7 +29,7 @@ a {
 .signUpWrapper {
   border: 1px solid gray;
   margin-bottom: 2rem;
-  width: 300px;
+  width: 450px;
   margin: 0 auto;
   /* padding: 10px; */
   position: relative;
@@ -40,6 +40,7 @@ a {
 }
 .logo {
   width: 150px;
+  margin-top: 20px;
 }
 
 .signUpLine {
@@ -48,6 +49,16 @@ a {
   cursor: pointer;
   background-color: #E3EFC5;
   transition: .3s;
+}
+.signUpLine-admin {
+  padding: 10px;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
+  background-color: #E3EFC5;
+  transition: .3s;
+}
+.signUpLine-admin:last-child {
+  border-bottom: none;
 }
 
 .signUpLine:hover {
@@ -102,6 +113,65 @@ input[type="text"] {
 
 .active {
   background-color: #BACF5F;
+}
+
+.modal-header {
+  margin: 5px 0;
+}
+
+.modal-subheader {
+  margin: 5px 0;
+}
+
+.modal-button-wrapper { 
+  margin-top: 10px;
+}
+
+.modal-button-yes, .modal-button-no {
+  background-color: #F78E55;
+  width: 120px;
+  height: 50px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 0 auto;
+  transition: .3s;
+  margin: 0 5px;
+}
+
+
+.modal-button-yes:hover, .modal-button-no:hover {
+  background-color: #F78E5589
+}
+
+.x-wrapper {
+  font-size: 30px;
+  position: absolute;
+  top: 0;
+  left: 11px;
+  cursor: pointer;
+}
+
+.loading-wrapper {
+  background-color: #E3EFC5;
+}
+.is-this-correct-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.input {
+  margin: 20px 0;
+  padding: 8px;
 }
 
 
