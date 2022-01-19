@@ -11,7 +11,7 @@
  
      onClick={() =>clickSlot(slot.id, slot)}
      className={"signUpLine" + ((selectedSlotId === slot.id) ? ' active' : '')}>
-         <p className="time">{slot.time}</p> 
+         <p className="time">{slot.time} | {slot.date}</p> 
      </div>
     // <></>
  

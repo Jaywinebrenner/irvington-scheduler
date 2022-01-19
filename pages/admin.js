@@ -14,7 +14,7 @@ export default function Admin() {
 
 
   const slotsRef = firebase.firestore().collection("slots");
-
+  const confirmedRef = firebase.firestore().collection("confirmed");
   const clickSlot = (id, slot) => { 
     setSelectedSlotId(id)
     setSelectedSlot(slot)
@@ -22,7 +22,7 @@ export default function Admin() {
 
   useEffect(() => {
     setIsLoading(true)
-    slotsRef.get().then((querySnapshot) => {
+    confirmedRef.get().then((querySnapshot) => {
         const tempDoc = []
         querySnapshot.forEach((doc) => {
             tempDoc.push({ id: doc.id, ...doc.data() })
@@ -51,7 +51,7 @@ export default function Admin() {
               return (
                 <div 
                 className="signUpLine-admin">
-                    <p className="time">{slot.time}</p> 
+                    <p className="time">{slot.name} - {slot.time} | {slot.date}</p> 
                 </div>
               )
             })

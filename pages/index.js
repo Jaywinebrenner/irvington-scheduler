@@ -35,6 +35,8 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [input, setInput] = useState('');
   const [yesIsSelected, setYesIsSelected] = useState(false)
+  const [confirmed, setConfirmed] = useState(false)
+  const [rerender, setRerender] = useState(false)
 
   const slotsRef = firebase.firestore().collection("slots");
 
@@ -53,6 +55,8 @@ export default function Home() {
     setSelectedSlot(null)
     setInput(null)
     removeAllActiveClasses()
+    setConfirmed(false)
+    setYesIsSelected(false)
   }
 
   const clickSlot = (id, slot) => { 
@@ -65,8 +69,25 @@ export default function Home() {
   }
 
   const submitName = () => {
-    
-  }
+    try {
+      setIsLoading(true)
+      db.collection("confirmed").add({
+        name: input,
+        time: selectedSlot.time,
+        date: selectedSlot.date
+      });
+      db.collection('slots').doc(selectedSlot.id).delete();
+      setIsLoading(false)
+      setConfirmed(true)
+      setRerender(prev => !prev)
+
+    } catch(error) {
+      console.log("ERROR")
+      alert("Blah, something went wrong...")
+      closeModal()
+      setIsLoading(false)
+    }
+  };
 
   const removeAllActiveClasses = () => {
     var elements = document.querySelectorAll('.signUpLine');
@@ -77,18 +98,17 @@ export default function Home() {
 
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     slotsRef.get().then((querySnapshot) => {
-        const tempDoc = []
+        const tempDoc = [];
         querySnapshot.forEach((doc) => {
             tempDoc.push({ id: doc.id, ...doc.data() })
-        })
-        console.log("temp doc",tempDoc)
-        setAllSlots(tempDoc)
-        setIsLoading(false)
+        });
+        setAllSlots(tempDoc);
+        setIsLoading(false);
       })
     return null
-    }, []);
+    }, [rerender]);
 
   return (
     <div id="app-container" className="container">
@@ -120,10 +140,10 @@ export default function Home() {
         style={customStyles}
         contentLabel="Example Modal"
       >
-       {!yesIsSelected && <div className='is-this-correct-wrapper'>
+       {!yesIsSelected && !isLoading && <div className='is-this-correct-wrapper'>
           <div onClick={closeModal} className='x-wrapper'>x</div>
           <h1 className='modal-header'>You have selected</h1>
-          <h3 className='modal-subheader'>{selectedSlot && selectedSlot.time}</h3>
+          <h3 className='modal-subheader'>{selectedSlot && selectedSlot.time} | {selectedSlot && selectedSlot.date}</h3>
           <h1 className='modal-header'>Is this correct?</h1>
           <div className='modal-button-wrapper'>
             <button onClick={selectYes} className='modal-button-yes'>YES</button>
@@ -131,11 +151,21 @@ export default function Home() {
           </div>
         </div>}
 
-        {yesIsSelected && <div className='input-wrapper'>
+        {yesIsSelected && !isLoading && !confirmed && <div className='input-wrapper'>
           <div onClick={closeModal} className='x-wrapper'>x</div>
           <h1 className='modal-header'>Please Enter Your Name</h1>
           <input className='input' value={input} onInput={e => setInput(e.target.value)}/>
-          <button className='modal-button-yes'>Submit Name</button>
+          <button onClick={()=>submitName()} className='modal-button-yes'>Submit Name</button>
+        </div>}
+        {isLoading && <div className='loading-wrapper'>
+            <img src="/spin.svg"/>
+        </div>}
+
+        {confirmed && <div className='confirm-wrapper'>
+          <div onClick={closeModal} className='x-wrapper'>x</div>
+          <h1 className='modal-header'>Thank you! We look forward to seeing you on: </h1>
+          <h3>{selectedSlot && selectedSlot.time}</h3>
+          <button onClick={closeModal} className='modal-button-yes'>Close</button>
         </div>}
       </Modal>
     </div>
