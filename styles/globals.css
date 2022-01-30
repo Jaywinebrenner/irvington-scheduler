@@ -35,6 +35,15 @@ a {
   position: relative;
 }
 
+.signUpWrapper-admin {
+  border: 1px solid gray;
+  margin-bottom: 2rem;
+
+  margin: 0 auto;
+  /* padding: 10px; */
+  position: relative;
+}
+
 .signUpLine:last-child {
   border-bottom: none;
 }
@@ -56,6 +65,7 @@ a {
   cursor: pointer;
   background-color: #E3EFC5;
   transition: .3s;
+  position: relative;
 }
 .signUpLine-admin:last-child {
   border-bottom: none;
@@ -73,14 +83,36 @@ a {
 }
 
 .input {
+  text-align: center;
   width: 100%;
   border: 0;
+  margin: 10px 0;
   cursor: pointer;
+  padding: 10px 0; 
+  background-color: white;
 }
 
 input[type="text"] {
   font-size:24px;
   color: gray;
+}
+.input-add:focus::placeholder {
+  color: transparent;
+  background-color: white;
+}
+
+.input-add {
+  text-align: center;
+  width: 20%;
+  border: 0;
+  margin: 10px 5px;
+  cursor: pointer;
+  padding: 10px 0; 
+  display: inline;
+}
+
+.input-add:focus::placeholder {
+  color: transparent;
 }
 
 .input:focus {
@@ -185,6 +217,77 @@ h1 {
   text-align: center;
 }
 
+.gear-icon {
+  width: 25px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.admin-modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-time-picker {
+  background-color: red;
+  width: 100%;
+  
+}
+.react-time-picker__inputGroup__input{
+width: 60px;
+}
+
+.react-time-picker__inputGroup__input {
+  width: 60px;
+}
+
+.time-input {
+    background-color: rgba(96, 108, 110, 0.15);
+    height: 40px;
+    padding: 10px 10px;
+    color: #606c6e;
+    font-size: 30px;
+    outline: 0 solid transparent;
+    border: 0 solid transparent;
+    width: 100%;
+    border-radius: 4px;
+    letter-spacing: -0.4px;
+    padding: 10px 18px;
+    width: 200px;
+}
+
+.react-datepicker__input-container input {
+  background-color: #F78E55;
+  width: 25%;
+  height: 50px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 1rem auto;
+  transition: .3s;
+}
+
+.time-wrapper {
+  margin-bottom: 3rem;
+}
+
+input[type="radio"] {
+  transform: scale(1.5);
+}
+
+.trash-icon {
+  position: absolute;
+  right: 20px;
+  bottom: 15px;
+  cursor: pointer;
+
+}
 
 /* #F78E55 */
 /* #BACF5F */

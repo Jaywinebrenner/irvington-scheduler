@@ -5,6 +5,10 @@ import TimeSlot from '../components/timeSlot'
 import Modal from 'react-modal';
 import firebase from '../utils/firebase'
 import {db} from "../utils/firebase"
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+
 
 const customStyles = {
   content: {
@@ -28,6 +32,8 @@ Modal.setAppElement('#app-container');
 
 export default function Home() {
 
+  const router = useRouter()
+
   const [allSlots, setAllSlots] = useState();
   const [selectedSlotId, setSelectedSlotId] = useState()
   const [selectedSlot, setSelectedSlot] = useState()
@@ -37,10 +43,11 @@ export default function Home() {
   const [yesIsSelected, setYesIsSelected] = useState(false)
   const [confirmed, setConfirmed] = useState(false)
   const [rerender, setRerender] = useState(false)
+  const [passwordInput, setPasswordInput] = useState()
+  const [adminModalIsOpen, setAdminModalIsOpen] = useState(false)
 
   const slotsRef = firebase.firestore().collection("slots");
 
-  console.log("input", input)
 
   function openModal() {
     if(selectedSlot) {
@@ -49,6 +56,16 @@ export default function Home() {
       alert("Please select a time")
     }
   }
+
+  const toggleAdminModal = () => {
+    setAdminModalIsOpen(prev => !prev)
+  }
+
+  const submitPassword = () => {
+    router.push("/admin")
+    console.log("submitted!")
+  }
+
 
   function closeModal() {
     setIsOpen(false);
@@ -104,6 +121,18 @@ export default function Home() {
         querySnapshot.forEach((doc) => {
             tempDoc.push({ id: doc.id, ...doc.data() })
         });
+
+        // let timeString = tempDoc.map((x) => x.time)
+        // console.log("timestring",timeString)
+
+        tempDoc.sort(function(a,b){
+          return new Date(b.time) - new Date(a.time);
+        });
+        
+        console.log("tempDoc",tempDoc);
+
+
+
         setAllSlots(tempDoc);
         setIsLoading(false);
       })
@@ -113,6 +142,7 @@ export default function Home() {
   return (
     <div id="app-container" className="container">
         <div className="headerWrapper">
+        <img onClick={toggleAdminModal} className='gear-icon' src="/gear.png"/>
         <img className="logo" src="https://images.squarespace-cdn.com/content/v1/5894f664b3db2b05e8507382/1614036205072-F5CTIZB1EP8DW62WCLAO/ICPS_Logo.jpg"/>
           <h1>Welcome to the Irvington Preschool Cooperative Open House Sign up Sheet!</h1>
           <p>We are registering for specific times to keep the flow through the school safer. Please select a time and enter your name to set up your visit.
@@ -167,6 +197,19 @@ export default function Home() {
           <h3>{selectedSlot && selectedSlot.time}</h3>
           <button onClick={closeModal} className='modal-button-yes'>Close</button>
         </div>}
+      </Modal>
+      <Modal
+          isOpen={adminModalIsOpen}
+          onRequestClose={toggleAdminModal}
+          style={customStyles}
+          contentLabel="Example Modal">
+        <div className='admin-modal-wrapper'>
+        <div onClick={toggleAdminModal} className='x-wrapper'>x</div>
+          <h1>Please Enter your password to access the admin area</h1>
+          <input className='input' value={passwordInput} onInput={e => setPasswordInput(e.target.value)}/>
+          <button onClick={submitPassword} className='modal-button-yes'>Enter</button>
+        </div>
+
       </Modal>
     </div>
     </div>
