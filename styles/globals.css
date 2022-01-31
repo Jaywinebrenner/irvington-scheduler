@@ -67,6 +67,10 @@ a {
   transition: .3s;
   position: relative;
 }
+
+.signUpLine-admin p {
+  font-size: large;
+}
 .signUpLine-admin:last-child {
   border-bottom: none;
 }
@@ -204,6 +208,10 @@ input[type="text"] {
 .input {
   margin: 20px 0;
   padding: 8px;
+}
+
+.input:focus {
+  background-color: white;
 }
 
 .confirm-wrapper {

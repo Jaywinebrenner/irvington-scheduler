@@ -62,6 +62,11 @@ export default function Admin() {
 
   const toggleAddModal = () => {
     setAddModalIsOpen(prev => !prev)
+    if(addModalIsOpen === false){
+      setAmOrPm(null);
+      setDate(null);
+      setTime(null);
+    }
   }
   const toggleDeleteModal = () => {
     setDeleteModalIsOpen(prev => !prev)
@@ -87,17 +92,31 @@ export default function Admin() {
   }
 
   const submitSlot = () => {
+    if(!hour || !minutes){
+      alert("Please Enter a time");
+      return;
+    }
+    console.log("AMPM", amOrPm)
+    if(!amOrPm){
+      alert("Please Enter a time of day");
+      return;
+    }
     try {
-      setTime(hour + ":" + minutes + " " + amOrPm)
-      console.log("inputted TIME", time)
-      console.log("inputted date", date)
+      // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      var options = { month: 'long', day: 'numeric' };
+      let formattedTime = hour + ":" + minutes + " " + amOrPm
+      console.log("inputted TIME", formattedTime)
+      console.log("inputted date", date.toLocaleDateString("en-US", options).toString());
+
       slotsRef.add({
-        date: customerName,
-        time: customerPassword,
+        date: date.toLocaleDateString("en-US", options),
+        time: formattedTime,
       });
       setTime("");
       setHour("");
       setMinutes("")
+      setRerender(prev => !prev)
+      toggleAddModal()
 
     } catch(e) {
       console.log("ERROR")
@@ -152,7 +171,7 @@ export default function Admin() {
                     <div onClick={() => clickDelete(slot.id, slot.time, slot.date)} className='trash-icon'>
                       <FontAwesomeIcon icon={faCoffee} />
                     </div>
-                    <p className="time">{slot.name} - {slot.time} | {slot.date}</p> 
+                    <p className="time">{slot.name} - {slot.time} | {slot.date} | {slot.email}</p> 
                 </div>
               )
             })

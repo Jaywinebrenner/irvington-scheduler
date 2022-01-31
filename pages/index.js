@@ -40,6 +40,7 @@ export default function Home() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
   const [input, setInput] = useState('');
+  const [email, setEmail] = useState('')
   const [yesIsSelected, setYesIsSelected] = useState(false)
   const [confirmed, setConfirmed] = useState(false)
   const [rerender, setRerender] = useState(false)
@@ -71,6 +72,7 @@ export default function Home() {
     setIsOpen(false);
     setSelectedSlot(null)
     setInput(null)
+    setEmail(null)
     removeAllActiveClasses()
     setConfirmed(false)
     setYesIsSelected(false)
@@ -86,10 +88,19 @@ export default function Home() {
   }
 
   const submitName = () => {
+    if(!input) {
+      alert("Please Enter your name.")
+      return;
+    }
+    if(!email) {
+      alert("Please Enter your email.");
+      return
+    }
     try {
       setIsLoading(true)
       db.collection("confirmed").add({
         name: input,
+        email: email,
         time: selectedSlot.time,
         date: selectedSlot.date
       });
@@ -125,9 +136,9 @@ export default function Home() {
         // let timeString = tempDoc.map((x) => x.time)
         // console.log("timestring",timeString)
 
-        tempDoc.sort(function(a,b){
-          return new Date(b.time) - new Date(a.time);
-        });
+        // tempDoc.sort(function(a,b){
+        //   return new Date(b.time) - new Date(a.time);
+        // });
         
         console.log("tempDoc",tempDoc);
 
@@ -183,8 +194,10 @@ export default function Home() {
 
         {yesIsSelected && !isLoading && !confirmed && <div className='input-wrapper'>
           <div onClick={closeModal} className='x-wrapper'>x</div>
-          <h1 className='modal-header'>Please Enter Your Name</h1>
+          <h3 className='modal-header'>Please Enter Your Name</h3>
           <input className='input' value={input} onInput={e => setInput(e.target.value)}/>
+          <h3 className='modal-header'>Please Enter Your Email</h3>
+          <input className='input' value={email} onInput={e => setEmail(e.target.value)}/>
           <button onClick={()=>submitName()} className='modal-button-yes'>Submit Name</button>
         </div>}
         {isLoading && <div className='loading-wrapper'>
